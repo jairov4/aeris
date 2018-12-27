@@ -1,0 +1,12 @@
+---
+- name: Provision certificates
+  hosts: all
+  tasks:
+    - copy: src=docker-swarm.pem dst=/usr/local/var/kaisa/docker-swarm.pem
+    - copy: src=docker-swarm-key.pem dst=/usr/local/var/kaisa/docker-swarm-key.pem
+    - copy: src=docker-swarm-ca.pem dst=/usr/local/var/kaisa/docker-swarm-ca.pem
+
+- name: Provision Docker Swarm cluster
+  hosts: all
+  roles:
+    - role: ansible-dockerswarm
