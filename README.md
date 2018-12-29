@@ -5,7 +5,7 @@ Docker Swarm based infrastructure for compute resources targeted to micro-servic
 ## How to use?
 
 First, place `vault.pwd` file in `ansible/` folder holding the Vault password that ansible will need to decrypt
-the certificates under `ansible/files/` folder.
+the certificates under `ansible/files/` folder. Then setup your own certificates there also.
 
 For development flavor launch the VM creation using Vagrant in the vagrant folder.
 Setup the right network interface in Vagrant file where `PUBLIC_NETWORK_IF` is defined and run vagrant.
