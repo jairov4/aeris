@@ -21,3 +21,16 @@ Then, you will need provision those VMs using ansible playbooks.
 ```bash
 ./provision.sh
 ```
+
+After provisioning, you will need your provided certificates to gain access to the swarm from outside world.
+Remember that your certificates are `ansible/files/docker-swarm*.pem`
+
+```bash
+cd ../ansible
+ansible-vault decrypt --vault-password-file=vault.pwd files/docker-swarm-key.pem
+docker -H tcp://$VM_IP \
+    --tls \
+    --tlscert files/docker-swarm.pem \
+    --tlskey files/docker-swarm-key.pem
+    info
+```
