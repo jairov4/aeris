@@ -1,8 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-PROJECT_NAME = "aeris"
-PUBLIC_NETWORK_IF = "en0: Wi-Fi (AirPort)"
+PROJECT_NAME = ENV.fetch('AERIS_PROJECT_NAME', 'aeris')
+PUBLIC_NETWORK_IF = ENV.fetch('AERIS_PUBLIC_NETWORK_IF', 'en0: Wi-Fi (AirPort)')
 VM_INSTANCES = 2
 VM_MEMORY = "1024"
 VM_CPUS = 1
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     vb.cpus = VM_CPUS
   end
 
-  all_instance_names = (1..VM_INSTANCES).map { |i| "kaisa-linux-#{i}" }
+  all_instance_names = (1..VM_INSTANCES).map { |i| "#{PROJECT_NAME}-linux-#{i}" }
 
   # Multi instance
   (1..VM_INSTANCES).each do |i|
@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
           "docker_engine" => all_instance_names,
           "docker_swarm_manager" => all_instance_names,
           "all:vars" => {
+            "proj_name" => PROJECT_NAME,
             "docker_swarm_interface" => "eth1",
             "ansible_ssh_common_args" => "-o StrictHostKeyChecking=no"
           }
