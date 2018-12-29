@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 PROJECT_NAME = "kaisa"
-PUBLIC_NETWORK_IF = "en0"
+PUBLIC_NETWORK_IF = "en0: Wi-Fi (AirPort)"
 VM_INSTANCES = 2
 VM_MEMORY = "1024"
 VM_CPUS = 1
@@ -17,20 +17,24 @@ Vagrant.configure("2") do |config|
   all_instance_names = (1..VM_INSTANCES).map { |i| "kaisa-linux-#{i}" }
 
   # Multi instance
-  for i in 1..VM_INSTANCES do
+  (1..VM_INSTANCES).each do |i|
     instance_name = "#{PROJECT_NAME}-linux-#{i}"
     config.vm.define instance_name do |instance|
-      instance.vm.hostname = instance_name
       instance.vm.box = "centos/7"
+      instance.vm.hostname = instance_name
       instance.vm.network "public_network", bridge: PUBLIC_NETWORK_IF
       instance.vm.provision "ansible" do |ansible|
-        ansible.playbook = "../ansible/playbooks/docker-swarm.yml"
+        ansible.playbook = "../ansible/docker-swarm.yml"
         ansible.config_file = "../ansible/ansible.cfg"
         ansible.tags = "dummy"
         ansible.become = true
         ansible.groups = {
           "docker_engine" => all_instance_names,
-          "docker_swarm_manager" => all_instance_names
+          "docker_swarm_manager" => all_instance_names,
+          "all:vars" => {
+            "docker_swarm_interface" => "eth1",
+            "ansible_ssh_common_args" => "-o StrictHostKeyChecking=no"
+          }
         }
       end
     end
