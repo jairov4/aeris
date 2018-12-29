@@ -8,6 +8,7 @@ First, place an `vault.pwd` file in `ansible/` folder holding the Vault password
 the certificates under `ansible/files/` folder.
 
 For development flavor launch the VM creation using Vagrant in the vagrant folder.
+Setup the right network interface in Vagrant file where `PUBLIC_NETWORK_IF` is defined and run vagrant.
 
 ```bash
 cd vagrant
