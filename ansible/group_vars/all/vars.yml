@@ -1,5 +1,5 @@
 ---
-docker_swarm_certs_dir: /usr/local/var/kaisa
+docker_swarm_certs_dir: /usr/local/var/aeris
 docker_swarm_cert_ca: "{{ docker_swarm_certs_dir }}/docker-swarm-ca.pem"
 docker_swarm_cert_ca_key: "{{ docker_swarm_certs_dir }}/docker-swarm-ca-key.pem"
 docker_swarm_cert_key: "{{ docker_swarm_certs_dir }}/docker-swarm-key.pem"
