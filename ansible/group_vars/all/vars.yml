@@ -1,0 +1,7 @@
+---
+docker_swarm_certs_dir: /usr/local/var/kaisa
+docker_swarm_cert_ca: "{{ docker_swarm_certs_dir }}/docker-swarm-ca.pem"
+docker_swarm_cert_ca_key: "{{ docker_swarm_certs_dir }}/docker-swarm-ca-key.pem"
+docker_swarm_cert_key: "{{ docker_swarm_certs_dir }}/docker-swarm-key.pem"
+docker_swarm_cert: "{{ docker_swarm_certs_dir }}/docker-swarm.pem"
+docker_options: "--tlsverify --tlscacert={{ docker_swarm_cert_ca }} --tlscert={{ docker_swarm_cert }} --tlskey={{ docker_swarm_cert_key }} -H tcp://0.0.0.0 -H unix:///var/run/docker.sock"
