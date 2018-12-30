@@ -1,6 +1,6 @@
 ---
 - name: Provision certificates
-  hosts: all
+  hosts: docker_engine
   tasks:
     - file: state=directory path="{{ docker_swarm_certs_dir }}"
     - copy: src=docker-swarm.pem dest="{{ docker_swarm_cert }}"
@@ -11,3 +11,13 @@
   hosts: all
   roles:
     - role: ansible-dockerswarm
+
+- name: Provision stack
+  hosts: docker_swarm_manager
+  run_once: true
+  tasks:
+    - docker_network: name=web driver=overlay
+    - docker_secret: name=traefik-cert data="{{ traefik_cert }}"
+    - docker_secret: name=traefik-cert-key data="{{ traefik_cert_key }}"
+    - copy: src=core-stack.yml dest="{{ core_stack_path }}"
+    - shell: docker stack deploy -c "{{ core_stack_path }}" "core_{{ proj_name }}"

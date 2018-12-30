@@ -12,3 +12,7 @@ docker_options: >-
   --tlskey={{ docker_swarm_cert_key }}
   -H tcp://{{ docker_swarm_binding_addr }}
   -H unix:///var/run/docker.sock
+  --bip={{ docker_daemon_network }}
+  --graph={{ docker_daemon_graph }}
+
+core_stack_path: "/usr/local/var/{{ proj_name }}/core-stack.yml"

@@ -1,2 +1,2 @@
-- src: git+https://github.com/SergK/ansible-dockerswarm.git
+- src: git+https://github.com/jairov4/ansible-dockerswarm.git
   version: docker_daemon_options_systemd

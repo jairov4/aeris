@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -xe
 cd ../ansible
 VG=../vagrant/.vagrant
